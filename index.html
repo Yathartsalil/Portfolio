@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Yatharth Kelkar — Portfolio</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+
+  <!-- Fav / Theme colors -->
+  <meta name="theme-color" content="#0c0d10" />
+
+  <style>
+    /* ===========================
+       THEME & RESET
+    ============================ */
+    :root{
+      --bg:#0b0b0c;
+      --card:#0f1113;
+      --glass: rgba(255,255,255,0.04);
+      --muted:#9aa3ad;
+      --text:#eef2f3;
+      --accent:#ff6600;        /* neon accent */
+      --accent-2:#ff7a1a;
+      --glow: 0 10px 40px rgba(255,102,0,0.12);
+      --radius:18px;
+      --max-width:1100px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      min-height:100vh;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:var(--text);
+      background:
+        radial-gradient(700px 500px at 10% -10%, rgba(255,102,0,0.08), transparent 30%),
+        radial-gradient(600px 420px at 120% 10%, rgba(255,122,26,0.04), transparent 30%),
+        var(--bg);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding-bottom:64px;
+    }
+
+    /* container */
+    .container{max-width:var(--max-width);margin:0 auto;padding:1.25rem}
+
+    /* header / nav */
+    header{
+      position:sticky;top:0;z-index:1100;
+      background:linear-gradient(180deg, rgba(11,11,12,0.6), rgba(11,11,12,0.4));
+      border-bottom:1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(8px);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:.9rem 0}
+    .brand{display:flex;align-items:center;gap:.7rem;font-family:Orbitron,sans-serif;font-weight:800;font-size:1.05rem}
+    .brand .badge{
+      width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--accent-2),var(--accent));box-shadow:0 8px 24px rgba(255,102,0,0.18);
+      color:white;font-weight:900;font-family:Orbitron;
+    }
+    nav a{color:var(--text);font-weight:600;margin-left:0.85rem;padding:.45rem .65rem;border-radius:10px;transition:all .18s}
+    nav a:hover{background:rgba(255,255,255,0.03);transform:translateY(-3px)}
+
+    /* hero */
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:1.6rem;align-items:center;padding:2.2rem 0 1rem}
+    .hero-left h1{font-size:clamp(2.2rem,4vw,3.2rem);line-height:1.05;font-weight:800}
+    .type {
+      font-family:Orbitron,monospace;
+      color:var(--accent);display:inline-block;min-height:2.6rem;
+      letter-spacing:.6px;font-weight:700;
+      background:linear-gradient(90deg, rgba(255,102,0,0.07), transparent);
+      padding:.05rem .15rem;border-radius:6px;
+    }
+    .lead{color:var(--muted);max-width:62ch;margin-top:.6rem}
+
+    /* profile card */
+    .profile{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:22px;padding:1.5rem;border:1px solid rgba(255,255,255,0.04);
+      display:flex;flex-direction:column;align-items:center;gap:.6rem;box-shadow:var(--glow);
+      position:relative;overflow:visible;
+    }
+    .avatar{
+      width:150px;height:150px;border-radius:20px;object-fit:cover;border:2px solid rgba(255,255,255,0.08);
+      box-shadow:0 20px 40px rgba(0,0,0,0.6), 0 6px 20px rgba(255,102,0,0.08);
+      transform:translateY(-28px);background:linear-gradient(180deg,#111,#1a1a1a);display:block;
+    }
+    .profile h3{font-family:Orbitron;margin-top:-8px;font-size:1.1rem}
+    .profile p{color:var(--muted);font-size:.95rem;margin-bottom:.35rem;text-align:center;padding:0 0.25rem}
+
+    /* pills row */
+    .pills{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.85rem}
+    .pill{padding:.45rem .75rem;border-radius:999px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:var(--muted);font-weight:600;font-size:.86rem}
+
+    /* grid blocks */
+    .grid{display:grid;gap:1.1rem}
+    .section{padding:3rem 0}
+    .section-title{font-size:1.95rem;font-weight:800;color:var(--accent);margin-bottom:.6rem}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);padding:1.25rem;border:1px solid rgba(255,255,255,0.04);
+      box-shadow:0 12px 36px rgba(2,6,23,0.5);transition:transform .28s,box-shadow .28s;
+    }
+    .card:hover{transform:translateY(-6px);box-shadow:0 30px 70px rgba(2,6,23,0.7)}
+
+    /* projects grid */
+    .projects{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .project h3{margin-bottom:.45rem}
+    .project p{color:var(--muted)}
+
+    /* skills */
+    .skills{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+    .skill{padding:.85rem;border-radius:12px;text-align:center;font-weight:700;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+
+    /* chatbot (kept) */
+    #chatbot-toggle{position:fixed;right:22px;bottom:22px;width:64px;height:64px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--accent-2),var(--accent));color:#fff;font-size:1.3rem;display:grid;place-items:center;box-shadow:0 14px 36px rgba(255,102,0,0.25);cursor:pointer;z-index:2200}
+    #chatbot{position:fixed;right:22px;bottom:100px;width:360px;max-height:520px;background:var(--card);border-radius:14px;overflow:hidden;display:none;flex-direction:column;border:1px solid rgba(255,255,255,0.04);z-index:2199}
+    .cb-head{padding:.75rem 1rem;border-bottom:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:space-between}
+    .cb-messages{padding:.9rem;flex:1;display:flex;flex-direction:column;gap:.5rem;overflow:auto}
+    .msg{max-width:80%;padding:.6rem .9rem;border-radius:12px;font-size:.95rem}
+    .bot{align-self:flex-start;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04)}
+    .user{align-self:flex-end;background:linear-gradient(180deg, rgba(255,102,0,0.12), rgba(255,102,0,0.08));border:1px solid rgba(255,102,0,0.15)}
+    .cb-input{display:flex;border-top:1px solid rgba(255,255,255,0.03)}
+    .cb-input input{flex:1;padding:.7rem .9rem;background:transparent;border:none;color:var(--text)}
+    .cb-input button{padding:.6rem .9rem;background:transparent;border:none;color:var(--accent);font-weight:800;cursor:pointer}
+
+    /* footer */
+    footer{margin-top:1.2rem;background:#070708;padding:2rem 0;color:var(--muted);border-top:1px solid rgba(255,255,255,0.03)}
+    .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;align-items:start}
+
+    /* small screens */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .profile{flex-direction:row;gap:1rem;padding:1rem;align-items:center}
+      .avatar{width:96px;height:96px;transform:none;border-radius:14px}
+      .hero-left{order:2}
+    }
+    @media (max-width:480px){
+      nav a{display:none}
+      .brand span{display:none}
+      .hero-left h1{font-size:1.8rem}
+    }
+
+    /* small fancy touches */
+    .glow-ring{
+      position:absolute;left:50%;transform:translateX(-50%);bottom:-36px;width:160px;height:160px;border-radius:50%;
+      background:radial-gradient(circle at center, rgba(255,122,26,0.12) 0%, transparent 45%);
+      filter:blur(22px);pointer-events:none;opacity:.95;
+    }
+    .accent-underline{display:inline-block;height:6px;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:48px;margin-left:6px;vertical-align:middle}
+  </style>
+</head>
+<body>
+  <!-- PRELOADER (light, non-blocking) -->
+  <div id="preloader" aria-hidden="true" style="position:fixed;inset:0;background:transparent;pointer-events:none;opacity:0;transition:opacity .6s"></div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="badge">YK</div>
+        <span>Yatharth Kelkar</span>
+      </div>
+
+      <nav aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#servers">Servers</a>
+        <a href="#skills">Skills</a>
+        <a href="#awards">Awards</a>
+        <a href="#bitcoin">Bitcoin</a>
+        <a href="blog.html">Blog</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main class="container">
+    <section class="hero" aria-label="Hero section">
+      <div class="hero-left">
+        <h1>Hi — I am Yatharth Kelkar<br><span class="type" id="typewriter">Robotics Engineer</span></h1>
+        <p class="lead">I’m an AI engineer, robotics tinkerer & systems operator — building real-world products with microcontrollers, cloud deployments, and smart dashboards.</p>
+
+        <div class="pills" style="margin-top:1rem">
+          <div class="pill">Dubai, UAE</div>
+          <div class="pill">Email: <a href="mailto:kelkaryatharth@gmail.com" style="color:inherit;opacity:0.95;margin-left:.35rem">kelkaryatharth@gmail.com</a></div>
+          <div class="pill">Open to collaborations</div>
+        </div>
+
+        <div style="margin-top:1.1rem;display:flex;gap:.6rem;flex-wrap:wrap">
+          <a class="pill" href="#projects" style="background:linear-gradient(90deg, rgba(255,122,26,0.06), transparent);border:1px solid rgba(255,122,26,0.06)">See Projects →</a>
+          <a class="pill" href="https://github.com/SalilMadhav" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+
+      <aside class="profile" aria-label="Profile card">
+        <img class="avatar" alt="Yatharth Kelkar avatar" src="https://via.placeholder.com/400x400.png?text=YK">
+        <div style="text-align:center">
+          <h3>Hey — I’m Yatharth</h3>
+          <p style="max-width:18rem;margin:auto;color:var(--muted)">AI Engineer · Robotics · Embedded Systems · Server Ops</p>
+          <div style="margin-top:.6rem;display:flex;gap:.5rem;justify-content:center">
+            <a class="pill" href="#contact" style="padding:.45rem .65rem">Contact</a>
+            
+          </div>
+        </div>
+        <div class="glow-ring" aria-hidden="true"></div>
+      </aside>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <h2 class="section-title">About Me <span class="accent-underline" aria-hidden="true"></span></h2>
+      <p class="lead" style="margin-bottom:1rem;color:var(--muted)">I design and deploy intelligent systems — from Arduino-powered robots to cloud-hosted dashboards and optimized Ubuntu servers.</p>
+      <div class="card">
+        <p>I'm a multidisciplinary engineer focused on AI-enabled robotics, server administration, and reliable embedded solutions. I love prototyping hardware, building responsive web experiences, and optimizing deployments for performance and reliability.</p>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <h2 class="section-title">Mind-Bursting Projects</h2>
+      <p class="lead" style="margin-bottom:.8rem;color:var(--muted)">Selected personal & research projects.</p>
+
+      <div class="grid projects">
+        <article class="card project">
+          <h3>🪐 Mars Rover</h3>
+          <p>Autonomous rover for soil testing with telemetry & live dashboards — Arduino + sensor fusion + analytics.</p>
+        </article>
+
+        <article class="card project">
+          <h3>🍱 Smart Food Rescue Node</h3>
+          <p>Edge device that detects food waste, grades freshness, and alerts nearby NGOs for pickup logistics.</p>
+        </article>
+
+        <article class="card project">
+          <h3>💬 ChatBot 2.5</h3>
+          <p>GUI-first assistant with plotting, math solving, persistence and dark mode — built for learning & utility.</p>
+        </article>
+
+        <article class="card project">
+          <h3>📡 Radar Visualization System</h3>
+          <p>Distance-sensing system with servo scanning and a rich GUI visualization layer for telemetry playback.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SERVERS -->
+    <section id="servers" class="section">
+      <h2 class="section-title">Servers & Infrastructure</h2>
+      <div class="card">
+        <ul style="list-style:none;display:grid;gap:.5rem;padding-left:0;color:var(--muted)">
+          <li>⚙️ Multiple Ubuntu instances (VirtualBox / Hyper-V).</li>
+          <li>☁️ Personal cloud & web hosting, Nginx/Apache setup.</li>
+          <li>🔐 Hardened SSH, firewall rules, and container orchestration with Docker.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section">
+      <h2 class="section-title">Skill Arsenal</h2>
+      <div class="grid skills">
+        <div class="skill">HTML / CSS</div>
+        <div class="skill">Python</div>
+        <div class="skill">JavaScript</div>
+        <div class="skill">Kotlin</div>
+        <div class="skill">C++</div>
+        <div class="skill">Django / Flask</div>
+        <div class="skill">Node.js / Express</div>
+        <div class="skill">Arduino / Embedded</div>
+        <div class="skill">Linux / Shell</div>
+        <div class="skill">Docker</div>
+      </div>
+    </section>
+
+    <!-- AWARDS -->
+    <section id="awards" class="section">
+      <h2 class="section-title">Awards & Achievements</h2>
+      <div class="card">
+        <ul style="list-style:none;gap:.6rem;display:flex;flex-direction:column;color:var(--muted)">
+          <li>🏆 2nd Place — Mars Rover Robotics</li>
+          <li>🚀 Innovation Award — Agriculture Rover</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- BITCOIN -->
+    <section id="bitcoin" class="section">
+      <h2 class="section-title">Bitcoin & Mining</h2>
+      <div class="card">
+        <p style="color:var(--muted)">Experimenting with efficient cooling, power management and monitoring for mining rigs, plus dashboarding and telemetry for long-term analytics.</p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <h2 class="section-title">Contact</h2>
+      <div class="card" style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;justify-content:space-between">
+        <div>
+          <p style="color:var(--muted)">Interested in collaborating? I respond faster to concise, scope-limited outreach.</p>
+          <p><strong>Email:</strong> <a href="mailto:kelkaryatharth@gmail.com" style="color:inherit">kelkaryatharth@gmail.com</a></p>
+        </div>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+          <a class="pill" href="mailto:kelkaryatharth@gmail.com">📧 Email</a>
+          <a class="pill" href="https://github.com/SalilMadhav" target="_blank">🐱 GitHub</a>
+          <a class="pill" href="https://linkedin.com/in/YatharthKelkar" target="_blank">🔗 LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div style="display:flex;align-items:center;gap:.6rem">
+            <div class="badge" style="width:44px;height:44px;border-radius:12px;font-size:0.9rem">YK</div>
+            <div>
+              <strong>Yatharth Kelkar</strong>
+              <div style="color:var(--muted);font-size:.95rem">AI Engineer & Tech Innovator</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <strong style="color:#fff">Quick Links</strong>
+          <div style="display:grid;grid-template-columns:repeat(2, minmax(110px,1fr));gap:.5rem;margin-top:.6rem">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+
+        <div>
+          <strong style="color:#fff">Location</strong>
+          <div style="color:var(--muted);margin-top:.5rem">Dubai, UAE<br>25.2048°N 55.2708°E</div>
+        </div>
+      </div>
+
+      <p style="text-align:center;margin-top:1rem;color:var(--muted)">© All rights reserved by Yatharth Kelkar</p>
+    </div>
+  </footer>
+
+  <!-- CHATBOT -->
+  <button id="chatbot-toggle" aria-label="Open chat">💬</button>
+  <div id="chatbot" role="dialog" aria-modal="true" aria-labelledby="cb-title">
+    <div class="cb-head">
+      <b id="cb-title">Chat with YK Bot</b>
+      <button onclick="toggleChatbot()" class="pill" style="padding:.3rem .5rem;font-size:.85rem">Close</button>
+    </div>
+    <div class="cb-messages" id="cb-messages" aria-live="polite">
+      <div class="msg bot">Hi! I'm YK Bot 🤖 — ask me about Yatharth.</div>
+    </div>
+    <div class="cb-input">
+      <input id="cb-input" type="text" placeholder="Ask me about projects, skills, servers...">
+      <button id="cb-send">Send ➤</button>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    /* Typewriter */
+    (function(){
+      const el = document.getElementById('typewriter');
+      const phrases = ["Robotics Engineer","AI Enthusiast","Web Developer","Arduino Specialist","Tech Innovator","Server Administrator"];
+      let pi=0,ci=0,del=false;
+      function tick(){
+        const p = phrases[pi];
+        el.textContent = p.slice(0,ci);
+        if(!del && ci < p.length){ ci++; setTimeout(tick, 80); }
+        else if(del && ci>0){ ci--; setTimeout(tick, 36); }
+        else { del = !del; if(!del) pi=(pi+1)%phrases.length; setTimeout(tick, 800); }
+      }
+      tick();
+    })();
+
+    /* Preloader fade-in (subtle) */
+    window.addEventListener('load', ()=> {
+      const pre = document.getElementById('preloader');
+      pre.style.opacity = '0';
+      setTimeout(()=> pre.remove(), 700);
+    });
+
+    /* Chatbot behaviour (simple local QnA based on your original) */
+    (function(){
+      const toggleBtn = document.getElementById('chatbot-toggle');
+      const chatbot = document.getElementById('chatbot');
+      const cbSend = document.getElementById('cb-send');
+      const cbInput = document.getElementById('cb-input');
+      const cbMessages = document.getElementById('cb-messages');
+
+      function toggle(){ chatbot.style.display = chatbot.style.display === 'flex' ? 'none' : 'flex'; }
+      toggleBtn.addEventListener('click', toggle);
+      window.toggleChatbot = toggle;
+
+      function addMsg(text, cls='bot'){
+        const d = document.createElement('div');
+        d.className = 'msg ' + cls;
+        d.textContent = text;
+        cbMessages.appendChild(d);
+        cbMessages.scrollTop = cbMessages.scrollHeight;
+      }
+
+      const qna = [
+        { k:['hello','hi','hey'], a:"Hello 👋 I'm YK Bot. Ask me about projects, skills, servers, or Bitcoin." },
+        { k:['who are you','about yatharth','who is yatharth'], a:"Yatharth Kelkar — AI engineer & robotics tinkerer from Dubai." },
+        { k:['projects','what have you built'], a:"Mars Rover, Smart Food Rescue Node, ChatBot 2.5, Radar Visualization System." },
+        { k:['servers','infrastructure','devops'], a:"Ubuntu instances, Apache/Nginx hosting, SSH hardening, Docker deployments." },
+        { k:['bitcoin','mining','crypto'], a:"Explores efficiency tuning, cooling, and monitoring for mining setups." }
+      ];
+
+      function findAnswer(q){
+        const t = q.toLowerCase();
+        for(const item of qna){
+          if(item.k.some(k=> t.includes(k))) return item.a;
+        }
+        return "I’m not sure — try asking about Projects, Servers, Skills, or Bitcoin.";
+      }
+
+      function send(){
+        const v = cbInput.value.trim(); if(!v) return;
+        addMsg(v,'user'); cbInput.value='';
+        setTimeout(()=> addMsg(findAnswer(v),'bot'), 350);
+      }
+
+      cbSend.addEventListener('click', send);
+      cbInput.addEventListener('keydown', e=> { if(e.key === 'Enter') send(); });
+
+      // seed
+      setTimeout(()=> addMsg("Hi! I'm YK Bot 🤖 — ask me anything about Yatharth."), 700);
+    })();
+  // ();
+  </script>
+</body>
+</html>

@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>YK Blog</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0b0c;
+      --card:#0f1113;
+      --text:#eef2f3;
+      --muted:#9aa3ad;
+      --accent:#ff6600;
+      --accent-2:#ff7a1a;
+      --radius:18px;
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      padding:2rem;
+    }
+
+    .title{
+      font-size:2.8rem;
+      font-family:Orbitron, system-ui;
+      color:var(--accent);
+      text-align:center;
+      margin-bottom:2rem;
+    }
+
+    .post-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.05);
+      padding:1.4rem;
+      border-radius:var(--radius);
+      margin-bottom:1.5rem;
+      box-shadow:0 12px 36px rgba(2,6,23,0.6);
+      transition:0.25s;
+    }
+
+    .post-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 18px 60px rgba(255,102,0,0.25);
+    }
+
+    .post-title{
+      font-size:1.5rem;
+      color:var(--accent-2);
+      margin-bottom:.4rem;
+    }
+
+    .post-date{
+      font-size:.9rem;
+      color:var(--muted);
+      margin-bottom:.8rem;
+    }
+
+    .post-body{
+      color:var(--muted);
+      font-size:1rem;
+    }
+
+    a.btn{
+      display:inline-block;
+      margin-top:1rem;
+      padding:.6rem 1rem;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      border-radius:10px;
+      color:white;
+      font-weight:700;
+      box-shadow:0 8px 28px rgba(255,122,26,0.3);
+    }
+
+    /* EXTRA: Comment + Like styling */
+    .comment-box{
+      margin-top:1rem;
+    }
+    .comment-box textarea{
+      width:100%;
+      background:#151719;
+      border:1px solid #333;
+      border-radius:10px;
+      padding:.7rem;
+      color:white;
+      resize:none;
+      height:70px;
+    }
+    .comment{
+      background:#151719;
+      padding:.6rem;
+      border-radius:10px;
+      margin-top:.4rem;
+      border:1px solid #222;
+    }
+    .like-btn{
+      margin-top:.6rem;
+      background:#ff6600;
+      border:none;
+      padding:.4rem .8rem;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+      color:black;
+    }
+
+    /* ADMIN BUTTON */
+    #adminBtn{
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      background:#ff6600;
+      padding:.7rem 1rem;
+      border-radius:12px;
+      cursor:pointer;
+      color:black;
+      font-weight:800;
+      box-shadow:0 0 15px rgba(255,102,0,0.5);
+    }
+    #adminPanel{
+      position:fixed;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      background:#111;
+      border:1px solid #333;
+      padding:1.5rem;
+      width:350px;
+      border-radius:15px;
+      display:none;
+    }
+    #adminPanel input, #adminPanel textarea{
+      width:100%;
+      padding:.7rem;
+      background:#1a1a1a;
+      border:1px solid #333;
+      color:white;
+      border-radius:10px;
+      margin-bottom:.7rem;
+    }
+    #adminPanel button{
+      background:#ff6600;
+      padding:.6rem 1rem;
+      border:none;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .delete-btn {
+      margin-top: 10px;
+      padding: 8px 14px;
+      background: #ff3300;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(255, 51, 0, 0.4);
+      display: inline-block;
+    }
+
+    .delete-btn:hover {
+      background: #ff2200;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <h1 class="title">🔸 YK Blog — Latest Posts</h1>
+
+  <!-- STATIC POSTS (unchanged visuals) -->
+  <div class="post-card" data-id="post1">
+    <div class="post-title">Building My Mars Rover</div>
+    <div class="post-date">Published: 02 Dec 2025</div>
+    <div class="post-body">
+      Today I improved the soil analysis algorithm, added ultrasonic stabilization and configured the Telemetry V3 dashboard...
+    </div>
+
+    <!-- Like + Comments -->
+    <button class="like-btn" onclick="alert('initializing...')">👍 Like <span id="like-post1">0</span></button>
+
+    <div class="comment-box">
+      <textarea id="comment-post1" placeholder="Write a comment..."></textarea>
+      <button class="like-btn" onclick="alert('initializing...')">Post Comment</button>
+      <div id="comments-post1"></div>
+    </div>
+  </div>
+
+  <div class="post-card" data-id="post2">
+    <div class="post-title">Why I Love Embedded Systems</div>
+    <div class="post-date">Published: 20 Nov 2025</div>
+    <div class="post-body">
+      Microcontrollers give you real-world control. I explain why Arduino + C++ + sensors are still unbeatable...
+    </div>
+
+    <button class="like-btn" onclick="alert('initializing...')">👍 Like <span id="like-post2">0</span></button>
+
+    <div class="comment-box">
+      <textarea id="comment-post2" placeholder="Write a comment..."></textarea>
+      <button class="like-btn" onclick="alert('initializing...')">Post Comment</button>
+      <div id="comments-post2"></div>
+    </div>
+  </div>
+
+  <a class="btn" href="register.html">Register to Get Updates →</a>
+
+  <!-- ADMIN BUTTON -->
+  <div id="adminBtn" onclick="document.getElementById('adminPanel').style.display='block'">
+    Admin Login
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div id="adminPanel">
+    <h3>Admin Login</h3>
+    <input id="adminUser" placeholder="Username">
+    <input id="adminPass" placeholder="Password" type="password">
+    <button onclick="adminLogin()">Login</button>
+
+    <div id="postCreator" style="display:none;margin-top:1rem;">
+      <h3>Create New Post</h3>
+      <input id="newTitle" placeholder="Post Title">
+      <textarea id="newBody" placeholder="Post Content"></textarea>
+      <button onclick="createPost()">Publish Post</button>
+    </div>
+  </div>
+
+<script>
+/*
+  Single clean script:
+  - default API for local testing: http://127.0.0.1:8000
+  - change API to deployed URL (https://...) when you deploy.
+*/
+
+const API = "http://127.0.0.1:8000"; // <-- local default. Change when deployed.
+let adminKey = ""; // set after admin login to be used when creating posts
+
+// safe fetch helper with console feedback
+async function safeFetch(url, opts = {}) {
+  try {
+    const res = await fetch(url, opts);
+    if (!res.ok) {
+      const body = await res.text().catch(()=>"[no body]");
+      console.error("Fetch error", url, res.status, body);
+      return { ok: false, status: res.status, body };
+    }
+    const json = await res.json().catch(()=>null);
+    return { ok: true, json };
+  } catch (err) {
+    console.error("Network error", url, err);
+    return { ok: false, error: err };
+  }
+}
+
+// On load: fetch posts, map static posts by title, render dynamic posts, load likes/comments
+window.addEventListener("load", async () => {
+  console.log("YK Blog frontend starting. API =", API);
+  const postsResp = await safeFetch(`${API}/posts`);
+  if (!postsResp.ok) {
+    console.warn("Could not fetch posts. Make sure backend is running at " + API);
+    // map static posts to nothing (disable)
+    mapStaticPostsToIds({});
+    return;
+  }
+  const posts = postsResp.json || [];
+  const titleMap = {};
+  posts.forEach(p => { if (p.title) titleMap[p.title.trim().toLowerCase()] = p.id; });
+
+  mapStaticPostsToIds(titleMap);
+  renderDynamicPosts(posts);
+});
+
+// Map static post cards (data-id starting with 'post') to numeric DB IDs by title match
+function mapStaticPostsToIds(titleMap) {
+  const staticCards = document.querySelectorAll('.post-card[data-id^="post"]');
+  staticCards.forEach(card => {
+    const titleEl = card.querySelector('.post-title');
+    if (!titleEl) return;
+    const title = titleEl.textContent.trim().toLowerCase();
+    const mapped = titleMap[title];
+    const oldDataId = card.getAttribute('data-id');
+
+    if (mapped) {
+      // like button adjustment
+      const likeBtn = card.querySelector('button.like-btn');
+      if (likeBtn) {
+        const span = likeBtn.querySelector('span');
+        if (span) span.id = `like-${mapped}`;
+        likeBtn.onclick = () => likePost(mapped);
+      }
+
+      // comment textarea and button
+      const textarea = card.querySelector('textarea');
+      if (textarea) textarea.id = `comment-${mapped}`;
+
+      const buttons = card.querySelectorAll('button.like-btn');
+      buttons.forEach(btn => {
+        if (btn.textContent && btn.textContent.toLowerCase().includes('post comment')) {
+          btn.onclick = () => addComment(mapped);
+        }
+      });
+
+      // comments container
+      const container = card.querySelector('[id^="comments-"]');
+      if (container) container.id = `comments-${mapped}`;
+
+      card.setAttribute('data-id', String(mapped));
+
+      loadLikes(mapped);
+      loadComments(mapped);
+
+      console.log(`Mapped static ${oldDataId} -> DB id ${mapped}`);
+    } else {
+      // no mapping found: disable interactions with friendly alert
+      const allButtons = card.querySelectorAll('button.like-btn');
+      allButtons.forEach(btn => {
+        btn.onclick = () => alert("This static post isn't in the server DB. Add it via admin panel to enable likes/comments.");
+      });
+      console.warn(`Static post "${title}" not found in DB — disabled interactions.`);
+    }
+  });
+}
+
+// Render dynamic posts (skip ones already present due to mapping)
+function renderDynamicPosts(posts) {
+  const anchor = document.querySelector('.title');
+  if (!anchor) return;
+
+  const existingIds = new Set();
+  document.querySelectorAll('.post-card[data-id]').forEach(c => {
+    const id = c.getAttribute('data-id');
+    if (/^\d+$/.test(id)) existingIds.add(Number(id));
+  });
+
+  posts.forEach(p => {
+    if (existingIds.has(p.id)) return;
+    anchor.insertAdjacentHTML('afterend', `
+      <div class="post-card" data-id="${p.id}">
+        <div class="post-title">${escapeHtml(p.title)}</div>
+        <div class="post-date">Published: ${escapeHtml(p.date)}</div>
+        <div class="post-body">${escapeHtml(p.body)}</div>
+
+        <button class="like-btn" onclick="likePost(${p.id})">👍 Like <span id="like-${p.id}">0</span></button>
+
+        <div class="comment-box">
+          <textarea id="comment-${p.id}" placeholder="Write a comment..."></textarea>
+          <button class="like-btn" onclick="addComment(${p.id})">Post Comment</button>
+          <div id="comments-${p.id}"></div>
+        </div>
+      </div>
+    `);
+    loadLikes(p.id);
+    loadComments(p.id);
+  });
+}
+
+// ---------- LIKE SYSTEM ----------
+async function likePost(id) {
+  const r = await safeFetch(`${API}/like/${id}`, { method: "POST" });
+  if (!r.ok) return alert("Could not like post (see console).");
+  loadLikes(id);
+}
+
+async function loadLikes(id) {
+  const r = await safeFetch(`${API}/likes/${id}`);
+  if (!r.ok) return;
+  const data = r.json || { likes: 0 };
+  const el = document.getElementById(`like-${id}`);
+  if (el) el.textContent = data.likes ?? 0;
+}
+
+// ---------- COMMENTS ----------
+async function addComment(id) {
+  const box = document.getElementById(`comment-${id}`);
+  if (!box) return alert("Comment box missing");
+  const text = box.value.trim();
+  if (!text) return;
+  const r = await safeFetch(`${API}/add-comment`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ post_id: Number(id), comment: text })
+  });
+  if (!r.ok) return alert("Could not post comment (see console).");
+  box.value = "";
+  loadComments(id);
+}
+
+async function loadComments(id) {
+  const container = document.getElementById(`comments-${id}`);
+  if (!container) return;
+  const r = await safeFetch(`${API}/comments/${id}`);
+  if (!r.ok) {
+    container.innerHTML = `<div class="comment">Could not load comments.</div>`;
+    return;
+  }
+  const comments = r.json || [];
+  container.innerHTML = "";
+  comments.forEach(c => {
+    container.innerHTML += `<div class="comment">${escapeHtml(String(c))}</div>`;
+  });
+}
+
+// ---------- ADMIN (UI-level, simple) ----------
+function adminLogin() {
+  const u = document.getElementById("adminUser").value.trim();
+  const p = document.getElementById("adminPass").value.trim();
+  // simple local check for UI; server still validates admin_key
+  if (u === "admin" && p === "1234") {
+    // prompt for admin key to use for API (keeps the real key secret)
+    const entered = prompt("Enter admin_key to use for creating posts (server key):", "");
+    if (entered) {
+      adminKey = entered.trim();
+      document.getElementById("postCreator").style.display = "block";
+      alert("Admin unlocked. Use the admin_key that matches the server.");
+      document.getElementById('adminPanel').style.display = 'none';
+    } else {
+      alert("Admin key required to publish posts.");
+    }
+  } else {
+    alert("Wrong admin username/password (UI). Use admin / 1234.");
+  }
+}
+
+async function createPost() {
+  const title = document.getElementById("newTitle").value.trim();
+  const body = document.getElementById("newBody").value.trim();
+  if (!title || !body) return alert("Fill all fields!");
+
+  if (!adminKey) {
+    const k = prompt("Enter admin_key to publish:");
+    if (!k) return alert("admin_key required");
+    adminKey = k.trim();
+  }
+
+  const r = await safeFetch(`${API}/add-post?admin_key=${encodeURIComponent(adminKey)}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title, body })
+  });
+  if (!r.ok) return alert("Could not create post (see console).");
+  alert("Post published!");
+  location.reload();
+}
+
+// small helper to escape HTML
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+</script>
+
+</body>
+</html>

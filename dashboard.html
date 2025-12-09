@@ -1,0 +1,16 @@
+<!DOCTYPE html><html><head>
+<title>Dashboard</title>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="firebase.js"></script>
+</head><body>
+<h2>Dashboard</h2>
+<p id="u"></p>
+<button onclick="auth.signOut()">Logout</button>
+<script>
+auth.onAuthStateChanged(u=>{
+ if(!u){ location='login.html'; }
+ else { document.getElementById('u').innerText="Logged in as: "+u.email; }
+});
+</script>
+</body></html>
